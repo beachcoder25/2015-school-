@@ -1,0 +1,39 @@
+def main():
+    print("This program will give us the average temperature for a given year.")
+    length = 0 #Create variable so it can be referenced
+    mylist = [] #Create list to store values in
+    avg = [] #Create list to store averages in
+
+    #My file location for my own reference
+    #(C:\Python34\Assignment7-1.txt)
+
+    try: #Implement try so we can have an exception 
+        myfile = input("\nWhere is the file located? ") #Ask user name of the file
+        infile = open(myfile) #Open the file the user names
+
+    except FileNotFoundError: #Create an exceptio if the wrong file name is entered
+        print("File", myfile, "not found") #Print message for user about wrong file
+        return #Terminate program if the wrong file name is entered
+
+    for line in infile: #Utilize for loop to go through file
+        for word in line.split(): #Utilize for loop and split function to assess individual values
+            if word == "NEXT": #If a line is next, calculate average of preceding numbers
+                length = len(mylist) #Assign variable value
+                if length == 0: #If length is 0, break out of loop
+                    break
+                else: #Else compute average and append to average list
+                    average = sum(mylist) / length
+                    avg.append(average)
+                    mylist = [] #Empty mylist to compute average correctly for next set of values
+                    
+            else: 
+                mylist.append(int(word)) #Append values to list for temperature calculations
+    print("")
+    for i in range(len(avg)): #Utilize for loop to go through averages 
+        print("The average temperature for this year is: ", avg[-(i+1)]) #Use indexing to print in reverse order
+
+main()
+        
+
+
+
